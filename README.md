@@ -9,3 +9,7 @@
 - `/server tps` - get current server TPS
 - `/server plugins` - get server plugins list
 
+# Example
+![](./src/main/resources/assets/exampleinfo.png)
+![](./src/main/resources/assets/exampleplugins.png)
+![](./src/main/resources/assets/exampletps.png)

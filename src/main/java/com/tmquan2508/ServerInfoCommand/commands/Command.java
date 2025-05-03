@@ -134,7 +134,6 @@ public class Command {
             sendFeedback(source, Text.literal("IP: ").formatted(Formatting.GRAY).append(ipText));
             Text motdText = Objects.requireNonNullElse(serverInfo.label, Text.literal("N/A").formatted(Formatting.YELLOW));
             sendFeedback(source, Text.literal("MOTD: ").formatted(Formatting.GRAY).append(motdText));
-            // Sửa lỗi định dạng tại đây: chỉ định dạng phần version màu vàng
             sendFeedback(source, Text.literal("Version: ").formatted(Formatting.GRAY).append(serverInfo.version.copy().formatted(Formatting.YELLOW)));
             sendFeedback(source, Text.literal("Protocol: ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(serverInfo.protocolVersion)).formatted(Formatting.YELLOW)));
         }
@@ -226,18 +225,18 @@ public class Command {
         String fullDisplayAddressWithPort = addressOnly + ":" + port;
         String fullResolvedIpWithPort = resolvedIp + ":" + port;
 
-        MutableText ipText = Text.literal(addressOnly).formatted(Formatting.AQUA)
-            .append(Text.literal(":" + port).formatted(Formatting.AQUA))
+        MutableText ipText = Text.literal(addressOnly).formatted(Formatting.GRAY)
+            .append(Text.literal(":" + port).formatted(Formatting.GRAY))
             .setStyle(Style.EMPTY
                 .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, fullDisplayAddressWithPort))
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy").formatted(Formatting.WHITE))));
 
         if (showResolved) {
             ipText.append(
-                Text.literal(" (").formatted(Formatting.DARK_GRAY)
-                .append(Text.literal(resolvedIp).formatted(Formatting.AQUA))
-                .append(Text.literal(":" + port).formatted(Formatting.AQUA))
-                .append(Text.literal(")").formatted(Formatting.DARK_GRAY))
+                Text.literal(" (").formatted(Formatting.GRAY)
+                .append(Text.literal(resolvedIp).formatted(Formatting.GRAY))
+                .append(Text.literal(":" + port).formatted(Formatting.GRAY))
+                .append(Text.literal(")").formatted(Formatting.GRAY))
                 .setStyle(Style.EMPTY
                     .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, fullResolvedIpWithPort))
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy").formatted(Formatting.WHITE)))
@@ -302,7 +301,9 @@ public class Command {
     }
 
     private static void sendFeedback(FabricClientCommandSource source, Text message) {
-        MutableText prefix = Text.literal("[Server] ").formatted(Formatting.GOLD);
+        MutableText prefix = Text.literal("[").formatted(Formatting.GRAY)
+            .append(Text.literal("Server").formatted(Formatting.GOLD))
+            .append(Text.literal("] ").formatted(Formatting.GRAY));
         MutableText fullMessage = prefix.append(message);
         source.sendFeedback(fullMessage);
     }
