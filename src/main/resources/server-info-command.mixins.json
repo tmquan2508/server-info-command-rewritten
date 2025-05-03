@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.tmquan2508.ServerInfoCommand.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "ServerInfoCommandModMixin",
+    "ClientPlayNetworkHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
