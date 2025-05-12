@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "server-info-command",
   "version": "${version}",
-  "name": "Server Info Command",
+  "name": "Server Info Command Mod",
   "description": "Adds a /server command to display server info, TPS (estimate), and plugins.",
   "authors": [
     "tmquan2508"
@@ -26,7 +26,7 @@
     "fabric-command-api-v2": "*",
     "fabric-networking-api-v1": "*",
     "fabric-lifecycle-events-v1": "*",
-    "minecraft": [">=1.21, <=1.21.4"],
+    "minecraft": ["1.21.5"],
     "java": ">=21"
   }
 }
