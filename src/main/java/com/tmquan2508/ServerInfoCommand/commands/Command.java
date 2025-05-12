@@ -228,9 +228,8 @@ public class Command {
         MutableText ipText = Text.literal(addressOnly).formatted(Formatting.GRAY)
             .append(Text.literal(":" + port).formatted(Formatting.GRAY))
             .setStyle(Style.EMPTY
-                .withClickEvent(new ClickEvent.CopyToClipboard(fullDisplayAddressWithPort))
-                .withHoverEvent(new HoverEvent.ShowText(Text.literal("Click to copy").formatted(Formatting.WHITE)))
-            );
+                .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, fullDisplayAddressWithPort))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy").formatted(Formatting.WHITE))));
 
         if (showResolved) {
             ipText.append(
@@ -239,8 +238,8 @@ public class Command {
                 .append(Text.literal(":" + port).formatted(Formatting.GRAY))
                 .append(Text.literal(")").formatted(Formatting.GRAY))
                 .setStyle(Style.EMPTY
-                    .withClickEvent(new ClickEvent.CopyToClipboard(fullResolvedIpWithPort))
-                    .withHoverEvent(new HoverEvent.ShowText(Text.literal("Click to copy").formatted(Formatting.WHITE)))
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, fullResolvedIpWithPort))
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Click to copy").formatted(Formatting.WHITE)))
                 )
             );
         }
@@ -292,10 +291,10 @@ public class Command {
 
         if (ANTICHEAT_LIST.contains(lowerPluginName)) {
             return Text.literal(pluginName).formatted(Formatting.RED)
-                       .styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Anti-Cheat/Security Plugin").formatted(Formatting.RED))));
+                       .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Anti-Cheat/Security Plugin").formatted(Formatting.RED))));
         } else if (VERSION_ALIASES.contains(lowerPluginName)) {
              return Text.literal(pluginName).formatted(Formatting.RED)
-                        .styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Version Info Command").formatted(Formatting.YELLOW))));
+                        .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("Version Info Command").formatted(Formatting.YELLOW))));
         } else {
             return Text.literal(pluginName).formatted(Formatting.WHITE);
         }
