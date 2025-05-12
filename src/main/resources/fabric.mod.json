@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "server-info-command",
   "version": "${version}",
-  "name": "Server Info Command Mod",
+  "name": "Server Info Command",
   "description": "Adds a /server command to display server info, TPS (estimate), and plugins.",
   "authors": [
     "tmquan2508"
