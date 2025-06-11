@@ -10,7 +10,7 @@
   "contact": {
   },
   "license": "MIT",
-  "icon": "assets/icon.png",
+  "icon": "assets/server-info-command-rewritten/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
