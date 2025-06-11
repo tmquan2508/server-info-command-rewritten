@@ -1,6 +1,6 @@
 <!-- ![](./src/main/resources/assets/icon.png) -->
 <div align="center">
-  <img src="./src/main/resources/assets/icon.png" width="200">
+  <img src="./src/main/resources/assets/server-info-command-rewritten/icon.png" width="200">
 </div>
 <h1 align="center">Server Info Command</h1>
 
@@ -10,6 +10,6 @@
 - `/server plugins` - get server plugins list
 
 # Example
-![](./src/main/resources/assets/exampleinfo.png)
-![](./src/main/resources/assets/exampleplugins.png)
-![](./src/main/resources/assets/exampletps.png)
+![](./example/info.png)
+![](./example/plugins.png)
+![](./example/tps.png)
