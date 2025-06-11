@@ -1,0 +1,35 @@
+name: Build
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        java: [21]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    name: Java Build ${{ matrix.java }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup JDK ${{ matrix.java }} (GraalVM)
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: "graalvm"
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Make Gradle wrappers executable
+        run: |
+          chmod +x ./gradlew
+        shell: bash
+
+      - name: Build main project
+        run: ./gradlew build
+        shell: bash
