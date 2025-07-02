@@ -6,7 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "ServerInfoCommandModMixin",
     "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
