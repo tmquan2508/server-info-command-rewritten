@@ -35,8 +35,7 @@ public class ServerInfoCommandMod implements ClientModInitializer {
     private static final Set<String> commandTreePlugins = Collections.synchronizedSet(new HashSet<>());
     private static final Set<String> completionPlugins = Collections.synchronizedSet(new HashSet<>());
     private static String versionCommandAlias = null;
-    private static final Set<String> VERSION_ALIASES = Set.of("version", "ver", "about", "bukkit:version", "bukkit:ver", "bukkit:about", "icanhasbukkit");
-    private static final Set<String> ANTICHEAT_LIST = Set.of("nocheatplus", "negativity", "warden", "horizon", "illegalstack", "coreprotect", "exploitsx", "vulcan", "abc", "spartan", "kauri", "anticheatreloaded", "witherac", "godseye", "matrix", "wraith", "antixrayheuristics", "grimac");
+    private static final Set<String> VERSION_ALIASES = Set.of("version", "ver", "about", "bukkit:version", "bukkit:ver", "bukkit:about");
     private static final Random RANDOM = new Random();
     private static int pendingPluginTransactionId = -1;
     private static boolean waitingForPluginSuggestions = false;
@@ -63,11 +62,11 @@ public class ServerInfoCommandMod implements ClientModInitializer {
         });
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-             resetTps();
-             resetPlugins();
-             timeGameJoinedMillis = System.currentTimeMillis();
-             lastTickTimeUpdateMillis = timeGameJoinedMillis;
-             LOGGER.info("Joined server. State reset.");
+            resetTps();
+            resetPlugins();
+            timeGameJoinedMillis = System.currentTimeMillis();
+            lastTickTimeUpdateMillis = timeGameJoinedMillis;
+            LOGGER.info("Joined server. State reset.");
         });
     }
 
@@ -83,7 +82,7 @@ public class ServerInfoCommandMod implements ClientModInitializer {
                 pluginRequestTimeoutTicks--;
                 if (pluginRequestTimeoutTicks <= 0) {
                     waitingForPluginSuggestions = false;
-                    int timedOutId = pendingPluginTransactionId; // Store before resetting
+                    int timedOutId = pendingPluginTransactionId;
                     pendingPluginTransactionId = -1;
                     LOGGER.warn("Plugin suggestion request timed out (ID: {}).", timedOutId);
                     if (pluginSuggestionsFuture != null && !pluginSuggestionsFuture.isDone()) {
@@ -259,12 +258,4 @@ public class ServerInfoCommandMod implements ClientModInitializer {
 			return Collections.<String>emptyList();
 		});
 	}
-
-    public static String formatPluginName(String name) {
-        String lowerName = name.toLowerCase();
-        if (ANTICHEAT_LIST.contains(lowerName) || StringUtils.containsIgnoreCase(name, "exploit") || StringUtils.containsIgnoreCase(name, "cheat") || StringUtils.containsIgnoreCase(name, "illegal")) {
-            return Formatting.RED + name + Formatting.GRAY;
-        }
-        return Formatting.AQUA + name + Formatting.GRAY;
-    }
 }

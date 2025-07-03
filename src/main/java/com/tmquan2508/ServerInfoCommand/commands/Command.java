@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
@@ -24,13 +25,12 @@ import java.util.stream.Collectors;
 public class Command {
 
     private static final Set<String> ANTICHEAT_LIST = Set.of(
-            "nocheatplus", "negativity", "warden", "horizon", "illegalstack",
-            "coreprotect", "exploitsx", "vulcan", "abc", "spartan", "kauri",
-            "anticheatreloaded", "witherac", "godseye", "matrix", "wraith",
-            "antixrayheuristics", "grimac"
+        "nocheatplus", "negativity", "warden", "horizon", "illegalstack", "coreprotect", "exploitsx", 
+        "vulcan", "abc", "spartan", "kauri", "anticheatreloaded", "witherac", "godseye", "matrix", "wraith", 
+        "antixrayheuristics", "grimac", "lightanticheat"
     );
     private static final Set<String> VERSION_ALIASES = Set.of(
-            "version", "ver", "about", "bukkit:version", "bukkit:ver", "bukkit:about"
+        "version", "ver", "about", "bukkit:version", "bukkit:ver", "bukkit:about"
     );
 
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
@@ -156,7 +156,7 @@ public class Command {
 
         if (combinedPlugins.isEmpty()) {
             feedbackSender.accept(Text.literal("No plugins detected via commands/tab-completion.").formatted(Formatting.YELLOW)
-                    .append(Text.literal(" (Server might not expose them, or request timed out)").formatted(Formatting.DARK_GRAY)));
+                .append(Text.literal(" (Server might not expose them, or request timed out)").formatted(Formatting.DARK_GRAY)));
         } else {
             List<String> sortedPlugins = new ArrayList<>(combinedPlugins);
 
@@ -207,8 +207,8 @@ public class Command {
         try {
             return InetAddress.getByName(address).getHostAddress();
         } catch (UnknownHostException e) {
-             ServerInfoCommandMod.LOGGER.warn("Could not resolve hostname: {}", address);
-             return address;
+            ServerInfoCommandMod.LOGGER.warn("Could not resolve hostname: {}", address);
+            return address;
         } catch (SecurityException e) {
             ServerInfoCommandMod.LOGGER.warn("Security manager prevented resolving hostname: {}", address);
             return address;
@@ -265,8 +265,9 @@ public class Command {
 
      private static MutableText formatPermissions(FabricClientCommandSource source) {
         int level = 0;
+        ClientPlayerEntity player = source.getPlayer();
         for (int i = 4; i >= 0; i--) {
-             if (source.hasPermissionLevel(i)) {
+             if (player.hasPermissionLevel(i)) {
                 level = i;
                 break;
             }
@@ -291,11 +292,9 @@ public class Command {
         String lowerPluginName = pluginName.toLowerCase(Locale.ROOT);
 
         if (ANTICHEAT_LIST.contains(lowerPluginName)) {
-            return Text.literal(pluginName).formatted(Formatting.RED)
-                       .styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Anti-Cheat/Security Plugin").formatted(Formatting.RED))));
+            return Text.literal(pluginName).formatted(Formatting.RED).styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Anti-Cheat/Security Plugin").formatted(Formatting.RED))));
         } else if (VERSION_ALIASES.contains(lowerPluginName)) {
-             return Text.literal(pluginName).formatted(Formatting.RED)
-                        .styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Version Info Command").formatted(Formatting.YELLOW))));
+            return Text.literal(pluginName).formatted(Formatting.RED).styled(style -> style.withHoverEvent(new HoverEvent.ShowText(Text.literal("Version Info Command").formatted(Formatting.YELLOW))));
         } else {
             return Text.literal(pluginName).formatted(Formatting.WHITE);
         }
