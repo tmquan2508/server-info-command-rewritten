@@ -38,11 +38,3 @@ jar {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
 }
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-}
